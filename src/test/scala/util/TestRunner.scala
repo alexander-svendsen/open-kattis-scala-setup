@@ -49,6 +49,18 @@ case class TestRunner(private val mainMethod: Array[String] => Unit = null,
   }
 
   def run(): Unit = {
+    // If there is no expected output, simply run the solution
+    if (expectedOutputStream == null) {
+      // Set stdIn from inputStream
+      Console.withIn(inputStream)(mainMethod.apply(null))
+    }
+    else {
+      runWithTestCoverage()
+    }
+
+  }
+
+  private def runWithTestCoverage(): Unit = {
     val stdOutputStream = new ByteArrayOutputStream()
 
     // Set stdIn from inputStream and write stdout to stdOutputStream
@@ -80,6 +92,4 @@ case class TestRunner(private val mainMethod: Array[String] => Unit = null,
       stdOutReader.readLine(),
       expectedOutputReader.readLine())
   }
-
-
 }
