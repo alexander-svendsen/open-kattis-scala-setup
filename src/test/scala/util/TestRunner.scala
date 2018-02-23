@@ -75,7 +75,7 @@ case class TestRunner(private val mainMethod: Array[String] => Unit = null,
     def assertLinesAreEqual(stdOutLine: String, expectedLine: String): Unit = {
       if (stdOutLine == null) fail(s"Missing solution in stdOut, expected line: $stdOutLine")
       else if (expectedLine == null) fail(s"Too many lines in stdOut, extra line: $stdOutLine")
-      assert(stdOutLine === stdOutLine)
+      assert(expectedLine === stdOutLine)
     }
 
     @tailrec
